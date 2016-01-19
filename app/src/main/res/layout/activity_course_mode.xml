@@ -1,0 +1,115 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    tools:context="com.clint.hillcaddylite.CourseModeActivity"
+    android:orientation="vertical"
+    android:id="@+id/courseMode_background">
+
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="10">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/angle_recommendClub_text"
+                android:textSize="16sp"
+                android:paddingTop="10dp"
+                android:paddingBottom="5dp"
+                android:textColor="@android:color/black"
+                android:layout_weight="5"/>
+
+            <EditText
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:id= "@+id/angle_recommendClub_editText"
+                android:inputType="numberSigned"
+                android:maxLength="3"
+                android:paddingBottom="10dp"
+                android:textColor="@android:color/black"
+                android:layout_weight="2"/>
+
+            <Button
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:onClick="showAngleCaptureView"
+                android:layout_weight="3"
+                android:background="@drawable/angle_button_image"/>
+
+
+        </LinearLayout>
+
+
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/angleDesc_recommendClub_text"
+            android:textSize="14sp"
+            android:paddingBottom="10dp"
+            android:textColor="@android:color/black"/>
+
+
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="10">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/distance_recommendClub_text"
+                android:textSize="16sp"
+                android:paddingTop="20dp"
+                android:paddingBottom="10dp"
+                android:textColor="@android:color/black"
+                android:layout_weight="6" />
+
+            <EditText
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:id= "@+id/distance_recommendClub_editText"
+                android:inputType="number"
+                android:maxLength="3"
+                android:paddingBottom="10dp"
+                android:textColor="@android:color/black"
+                android:layout_weight="4"/>
+
+
+        </LinearLayout>
+
+        <Button
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/calcClub_recommendClub_button"
+            android:onClick="calculateBestClub" />
+
+
+    </LinearLayout>
+    
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/viewDistanceCard_course_button"
+        android:onClick="showDistanceCard"
+        android:layout_alignParentBottom="true"/>
+
+
+
+</RelativeLayout>

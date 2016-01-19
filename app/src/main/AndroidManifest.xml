@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.clint.hillcaddylite"
+    android:versionCode="1"
+    android:versionName="1.0">
+
+    <uses-feature android:name="android.hardware.sensor.accelerometer" android:required="false"/>
+
+    <application
+        android:name=".GlobalVars"
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme" >
+        <activity
+            android:name=".MainActivity"
+            android:label="@string/app_name" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".CreateProfileActivity"
+            android:label="@string/title_activity_create_profile"
+            android:parentActivityName=".MainActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.clint.hillcaddylite.MainActivity" />
+        </activity>
+        <activity
+            android:name=".SettingsActivity"
+            android:label="@string/title_activity_settings"
+            android:parentActivityName=".MainActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.clint.hillcaddylite.MainActivity" />
+        </activity>
+        <activity
+            android:name=".AboutActivity"
+            android:label="@string/title_activity_about"
+            android:parentActivityName=".MainActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.clint.hillcaddylite.MainActivity" />
+        </activity>
+        <activity
+            android:name=".CourseModeActivity"
+            android:label="@string/title_activity_course_mode"
+            android:parentActivityName=".MainActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.clint.hillcaddylite.MainActivity" />
+        </activity>
+        <activity
+            android:name=".AngleCaptureActivity"
+            android:label="@string/title_activity_angle_capture"
+            android:parentActivityName=".CourseModeActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.clint.hillcaddylite.CourseModeActivity" />
+        </activity>
+        <activity
+            android:name=".ClubResultActivity"
+            android:label="@string/title_activity_club_result"
+            android:parentActivityName=".CourseModeActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.clint.hillcaddylite.CourseModeActivity" />
+        </activity>
+        <activity
+            android:name=".RangeModeActivity"
+            android:label="@string/title_activity_range_mode"
+            android:parentActivityName=".MainActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.clint.hillcaddylite.MainActivity" />
+        </activity>
+        <activity
+            android:name=".DistanceCardActivity"
+            android:label="@string/title_activity_distance_card"
+            android:parentActivityName=".CourseModeActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.clint.hillcaddylite.CourseModeActivity" />
+        </activity>
+    </application>
+
+</manifest>
