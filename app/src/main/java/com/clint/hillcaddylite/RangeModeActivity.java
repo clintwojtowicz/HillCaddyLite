@@ -58,6 +58,7 @@ public class RangeModeActivity extends AppCompatActivity {
     protected void onResume()
     {
         setBackgroundImage();
+        setTextYardsOrMeters();
         showClubs();
         super.onResume();
     }
@@ -72,7 +73,10 @@ public class RangeModeActivity extends AppCompatActivity {
 
         try {
             cName = clubName.getText().toString();
+            //check to see if the distance is being entered in meters, if it is, then convert to yards to save in db
             distance = Integer.parseInt(dist.getText().toString());
+            if(globals.getDisplayUnits()) distance = Conversion.meterToYardRnd(distance);
+
         }
         catch (Exception e) {
             this.showMessage("The club name and distance can not be empty");
@@ -163,15 +167,17 @@ public class RangeModeActivity extends AppCompatActivity {
         TableRow header = new TableRow(this);
 
         TextView tv0 = new TextView(this);
-        tv0.setText("Club Name     ");
+        tv0.setText("Club Name    ");
         tv0.setTextColor(Color.BLACK);
-        tv0.setTextSize(20);
+        tv0.setTextSize(16);
         header.addView(tv0);
 
         TextView tv1 = new TextView(this);
-        tv1.setText("Distance    ");
+        //determine whether to use metrics or yards for text
+        if(!globals.getDisplayUnits()) tv1.setText(R.string.distance_yds_table_range_text);
+        else tv1.setText(R.string.distance_m_table_range_text);
         tv1.setTextColor(Color.BLACK);
-        tv1.setTextSize(20);
+        tv1.setTextSize(16);
         header.addView(tv1);
 
         shotTable.addView(header);
@@ -187,20 +193,24 @@ public class RangeModeActivity extends AppCompatActivity {
             t1v.setText(club.getName());
             t1v.setTextColor(Color.BLACK);
             t1v.setGravity(Gravity.LEFT);
-            t1v.setTextSize(12);
+            t1v.setTextSize(14);
             tbrow.addView(t1v);
 
             TextView t2v = new TextView(this);
-            t2v.setText(club.getDistance().toString());
+            //check to see whether distance should be in yards or meters
+            if(!globals.getDisplayUnits()) t2v.setText(club.getDistance().toString());
+            else {
+                t2v.setText(Conversion.yardToMeterRnd(club.getDistance()).toString());
+            }
             t2v.setTextColor(Color.BLACK);
             t2v.setGravity(Gravity.LEFT);
-            t2v.setTextSize(12);
+            t2v.setTextSize(14);
             tbrow.addView(t2v);
 
             //set button id to club id so we can use it to remove the shot
             //this is okay because android assigned ids start at 0x00FFFFFF, there will never be that many shots
             Button button = new Button(this);
-            button.setText("Remove");
+            button.setText(R.string.remove_button);
             button.setId(club.getId());
             button.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -224,6 +234,15 @@ public class RangeModeActivity extends AppCompatActivity {
         db.removeClub(currentUser, view.getId());
 
         showClubs();
+
+    }
+
+    public void setTextYardsOrMeters()
+    {
+        TextView distanceLabel = (TextView)findViewById(R.id.distance_range_text);
+
+        if(!globals.getDisplayUnits()) distanceLabel.setText(R.string.distance_range_yds_text);
+        else distanceLabel.setText(R.string.distance_range_m_text);
 
     }
 

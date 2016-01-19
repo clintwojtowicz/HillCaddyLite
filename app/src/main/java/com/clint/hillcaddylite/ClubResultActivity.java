@@ -23,6 +23,8 @@ import java.util.List;
 public class ClubResultActivity extends AppCompatActivity {
 
     GlobalVars globals;
+    private Integer Ydist;
+    private Integer Zdist;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,20 +32,20 @@ public class ClubResultActivity extends AppCompatActivity {
         setContentView(R.layout.activity_club_result);
 
         Intent intent = getIntent();
-        Integer Zdist = intent.getIntExtra(CourseModeActivity.EXTRA_ZDIST, 0);
-        Integer Ydist = intent.getIntExtra(CourseModeActivity.EXTRA_YDIST, 0);
+        Zdist = intent.getIntExtra(CourseModeActivity.EXTRA_ZDIST, 0);
+        Ydist = intent.getIntExtra(CourseModeActivity.EXTRA_YDIST, 0);
 
         this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
         globals = ((GlobalVars)getApplicationContext());
 
-        showShotResults(Ydist, Zdist);
     }
 
     @Override
     protected void onResume()
     {
         setBackgroundImage();
+        showShotResults(Ydist, Zdist);
         super.onResume();
     }
 
@@ -75,22 +77,27 @@ public class ClubResultActivity extends AppCompatActivity {
         List<ShotResult> distanceList = profile.getAllDistancesFromTarget(ydist, zdist);
 
         TableLayout distanceTable = (TableLayout) findViewById(R.id.resultCard_table);
+        //make sure the table is clear before making changes
+        distanceTable.removeAllViews();
+
         TableRow header = new TableRow(this);
 
         TextView tv0 = new TextView(this);
-        tv0.setText("Club         ");
+        tv0.setText("Club       ");
         tv0.setTextColor(Color.BLACK);
         tv0.setTypeface(null, Typeface.BOLD);
         tv0.setGravity(Gravity.LEFT);
-        tv0.setTextSize(18);
+        tv0.setTextSize(20);
         header.addView(tv0);
 
         TextView tv1 = new TextView(this);
-        tv1.setText("Distance \nFrom Target (yds)");
+        //determine whether to use metrics or yards for text
+        if(!globals.getDisplayUnits()) tv1.setText(R.string.distance_yds_table_result_text);
+        else tv1.setText(R.string.distance_m_table_result_text);
         tv1.setTextColor(Color.BLACK);
         tv1.setTypeface(null, Typeface.BOLD);
         tv1.setGravity(Gravity.LEFT);
-        tv1.setTextSize(18);
+        tv1.setTextSize(20);
         header.addView(tv1);
 
         distanceTable.addView(header);
@@ -109,7 +116,11 @@ public class ClubResultActivity extends AppCompatActivity {
             tbrow.addView(t1v);
 
             TextView t2v = new TextView(this);
-            t2v.setText(shot.getDistance().toString());
+            //check to see whether distance should be in yards or meters
+            if(!globals.getDisplayUnits()) t2v.setText(shot.getDistance().toString());
+            else {
+                t2v.setText(Conversion.yardToMeterRnd(shot.getDistance()).toString());
+            }
             t2v.setTextColor(Color.BLACK);
             t2v.setGravity(Gravity.LEFT);
             t2v.setTextSize(18);
@@ -119,11 +130,13 @@ public class ClubResultActivity extends AppCompatActivity {
         }
 
         ShotResult closestShot = findClosestShot(distanceList);
-        showClosestClubDialog(closestShot, ydist, zdist);
+        //decide whether the closest club dialog should show yards or meters for results
+        if(!globals.getDisplayUnits()) showClosestClubDialogYards(closestShot, ydist, zdist);
+        else showClosestClubDialogMeters(closestShot, ydist, zdist);
 
     }
 
-    public void showClosestClubDialog(ShotResult shot, Integer yDist, Integer zDist)
+    public void showClosestClubDialogYards(ShotResult shot, Integer yDist, Integer zDist)
     {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setCancelable(true);
@@ -140,6 +153,38 @@ public class ClubResultActivity extends AppCompatActivity {
         else if (shot.getDistance() < 1000)
         {
             builder.setMessage(shotDist + "The closest club is your " + shot.getClubName() + ". It will land " + shot.getDistance().toString() + " yds past the target");
+        }
+        else
+        {
+            builder.setMessage(shotDist + "No clubs available, go to range mode and check your clubs and distances for a club recommendation.");
+        }
+
+        builder.setPositiveButton("OK", new DialogInterface.OnClickListener(){
+            public void onClick(DialogInterface dialog, int id){}
+        });
+
+        builder.show();
+    }
+
+    public void showClosestClubDialogMeters(ShotResult shot, Integer yDist, Integer zDist)
+    {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setCancelable(true);
+        builder.setTitle("HillCaddy Says...");
+
+        Integer dist = ShotCalculator.calculateDistance(yDist, zDist);
+        //convert distance to meters
+        dist = Conversion.yardToMeterRnd(dist);
+
+        String shotDist = "The shot will play "+ dist.toString() +" meters.\n";
+
+        if (shot.getDistance() < 0) {
+            Integer shotAbs = Math.abs(Conversion.yardToMeterRnd(shot.getDistance()));
+            builder.setMessage(shotDist + "The closest club is your " + shot.getClubName() + ". It will land " + shotAbs.toString() + " m short of the target");
+        }
+        else if (shot.getDistance() < 1000)
+        {
+            builder.setMessage(shotDist + "The closest club is your " + shot.getClubName() + ". It will land " + shot.getDistance().toString() + " m past the target");
         }
         else
         {

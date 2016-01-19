@@ -20,9 +20,21 @@ public class Conversion
         return yd * .9144;
     }
 
+    public static Integer yardToMeterRnd(Integer yd)
+    {
+        Double meters = yd * .9144;
+        return meters.intValue();
+    }
+
     public static Double meterToYard(Double m)
     {
         return m / .9144;
+    }
+
+    public static Integer meterToYardRnd(Integer m)
+    {
+        Double yards = m / .9144;
+        return yards.intValue();
     }
 
     public static Double degreesToRadians(Double deg)

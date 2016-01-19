@@ -32,13 +32,13 @@ public class DistanceCardActivity extends AppCompatActivity {
         setContentView(R.layout.activity_distance_card);
         globals = ((GlobalVars) getApplicationContext());
         this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-        this.showDistanceCard();
     }
 
     @Override
     protected void onResume()
     {
         setBackgroundImage();
+        this.showDistanceCard();
         super.onResume();
     }
 
@@ -69,6 +69,8 @@ public class DistanceCardActivity extends AppCompatActivity {
         List<ShotResult> distanceList = profile.getClubDistances();
 
         TableLayout distanceTable = (TableLayout) findViewById(R.id.distanceCard_table);
+        distanceTable.removeAllViews();
+
         TableRow header = new TableRow(this);
 
         TextView tv0 = new TextView(this);
@@ -80,7 +82,9 @@ public class DistanceCardActivity extends AppCompatActivity {
         header.addView(tv0);
 
         TextView tv1 = new TextView(this);
-        tv1.setText("Distance (yds)");
+        //determine whether to use metrics or yards for text
+        if(!globals.getDisplayUnits()) tv1.setText(R.string.distance_yds_table_range_text);
+        else tv1.setText(R.string.distance_m_table_range_text);
         tv1.setTextColor(Color.BLACK);
         tv1.setTypeface(null, Typeface.BOLD);
         tv1.setGravity(Gravity.LEFT);
@@ -103,7 +107,11 @@ public class DistanceCardActivity extends AppCompatActivity {
             tbrow.addView(t1v);
 
             TextView t2v = new TextView(this);
-            t2v.setText(shot.getDistance().toString());
+            //check to see whether distance should be in yards or meters
+            if(!globals.getDisplayUnits()) t2v.setText(shot.getDistance().toString());
+            else {
+                t2v.setText(Conversion.yardToMeterRnd(shot.getDistance()).toString());
+            }
             t2v.setTextColor(Color.BLACK);
             t2v.setGravity(Gravity.LEFT);
             t2v.setTextSize(18);

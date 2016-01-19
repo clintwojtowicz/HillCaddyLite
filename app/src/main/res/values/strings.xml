@@ -10,7 +10,6 @@
     <string name="sel_mode_desc">Instructions: \n   -Select Course Mode to launch the HillCaddy shot calculator \n   -Select Range Mode to add clubs and shots to your profile</string>
 
 
-
     //Create New Profile Activity
     <string name="title_activity_create_profile">Create New Profile</string>
     <string name="new_name_text">Name</string>
@@ -22,35 +21,21 @@
     <string name="title_activity_course_mode">Course Mode</string>
     <string name="viewDistanceCard_course_button">Distance Card</string>
     <string name="calcClub_course_button">Club Calculator</string>
-    <string name="calcDensity_course_button">Calculate Air Density</string>
-
 
     //Range Mode Activity
     <string name="title_activity_range_mode">Range Mode</string>
     <string name="clubName_range_text">Club Name</string>
     <string name="distance_range_yds_text">Distance (yds)</string>
-    <string name="back_spin_text">Back Spin (rpm)</string>
-    <string name="side_spin_text">Side Spin (rpm)</string>
-    <string name="addRemove_range_button">Add/Remove Clubs</string>
-    <string name="launch_angle_text">Launch Angle (degrees)</string>
+    <string name="distance_range_m_text">Distance (m)</string>
     <string name="addClub_range_button">Add</string>
-
-    <string name="viewShots_range_button">View Shots</string>
-
-    //Add Club Activity
-    <string name="title_activity_add_club">Edit Bag</string>
-    <string name="new_club_name_text">Type New Club Name Here</string>
-    <string name="addClub_editBag_button">Add New Club</string>
-    <string name="remove_club_name_text">Select Club to Remove From Dropdown</string>
-    <string name="remove_club_button">Remove Club</string>
-
-    //View Shots Activity
-    <string name="title_activity_view_shots">View Shots</string>
-    <string name="viewShots_viewShots_button">View Shots for Selected Club</string>
-    <string name="removeShot_viewShots_button">Remove Selected Shot</string>
+    <string name="remove_button">Remove</string>
+    <string name="clubName_table_range_text">Club Name</string>
+    <string name="distance_m_table_range_text">Distance (m)  </string>
+    <string name="distance_yds_table_range_text">Distance (yds)</string>
 
     //Distance Card Activity
     <string name="title_activity_distance_card">Distance Card</string>
+    <string name="club_distance_text">Club</string>
 
     //Recommended club Activity
     <string name="title_activity_recommended_club">Club Calculator</string>
@@ -66,15 +51,12 @@
     //Angle Capture Activity
     <string name="title_activity_angle_capture">Angle Capture</string>
     <string name="capture_angleCapture_button">Press to Capture Angle</string>
-    <string name="title_activity_club_result">Club Results</string>
 
-    //Air Density Activity
-    <string name="title_activity_air_density">Air Density Calculator</string>
-    <string name="pressure_airDens_text">Pressure (hPa): </string>
-    <string name="temp_airDens_text">Temperature (F): </string>
-    <string name="humidity_airDens_text">Relative Humidity (%): </string>
-    <string name="calc_airDens_button">Calculate Air Density</string>
-    <string name="default_airDens_button">Reset Air Density to Default</string>
+    //Club Results
+    <string name="title_activity_club_result">Club Results</string>
+    <string name="club_result_text">Club</string>
+    <string name="distance_m_table_result_text">Distance (m)\nFrom Target</string>
+    <string name="distance_yds_table_result_text">Distance (yds)\nFrom Target</string>
 
     //Settings Activity
     <string name="title_activity_settings">Settings</string>

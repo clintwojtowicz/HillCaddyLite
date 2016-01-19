@@ -31,6 +31,7 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:text="@string/distance_range_yds_text"
+                android:id="@+id/distance_range_text"
                 android:textSize="16sp"
                 android:paddingBottom="10dp"
                 android:textColor="@android:color/black"
@@ -78,14 +79,14 @@
 
         <ScrollView
             android:id="@+id/scrollViewClubs"
-            android:layout_width="fill_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:paddingTop="20dp">
 
             <HorizontalScrollView
                 android:id="@+id/hscrlshots"
-                android:layout_width="fill_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content" >
 
                 <RelativeLayout
@@ -99,7 +100,7 @@
                         android:id="@+id/clubs_table"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_centerHorizontal="true" >
+                        >
                     </TableLayout>
 
                 </RelativeLayout>
